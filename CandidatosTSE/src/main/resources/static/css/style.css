@@ -1,0 +1,26 @@
+body{
+    background-color: gray;
+}
+.grade-candidatos {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+gap: 12px;
+
+}
+.card{ 
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
+    padding: 2px;
+}
+.foto-candidato {
+width: 100%;
+aspect-ratio: 161 / 225;
+object-fit: cover;
+}
+
+#topo {
+    background-color: rgb(26, 30, 152);
+}
+#title {
+    color: white;
+}

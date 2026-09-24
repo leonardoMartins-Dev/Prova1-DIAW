@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <title>Candidatos Tse</title>
+</head>
+
+<body>
+     <!-- Selecao  da lista dos cargos -->
+    <div id="topo">
+        <p id="title">CANDIDATOS ELEICOES MG</p>
+        <form method="get" th:action="@{/}">
+            <select name="cargo">
+                <option value="" th:selected="${cargoSelecionado == null or cargoSelecionado == ''}">Todos</option>
+                <option th:each="c : ${cargo}"
+                        th:value="${c}"
+                        th:text="${c}"
+                        th:selected="${c == cargoSelecionado}"></option>
+            </select>
+            <button type="submit">Filtrar</button>
+            <a th:href="@{/}" class="limpar">Limpar</a>
+        </form>
+    </div>
+
+        <p class="resultado-info">
+            <span th:text="${totalEncontrado}">0</span> candidato(s) encontrado(s).
+        </p>
+        <p th:if="${totalEncontrado == 0}" class="sem-resultado">
+            Nenhum candidato encontrado com esses filtros.
+        </p>
+
+     <!-- Painel com a lista dos candidatos -->
+    <div class="grade-candidatos">
+      <div class="card" th:each="cand : ${candidatos}">
+        <img th:src="@{'/images/candidatos/' + ${cand.nomeArquivoFoto}}"
+            th:alt="${cand.nomeUrna}" class="foto-candidato">
+            <p class="name" th:if="${cand.nomeCandidato != null and !cand.ocupacao.isBlank()}" th:text="${cand.nomeCandidato}">name</p>
+        <p class="situacao" th:if="${cand.situacaoCandidatura != null and !cand.situacaoCandidatura.isBlank()}"
+            th:text="${cand.situacaoCandidatura}">Situação</p>
+        <p class="extra" th:if="${cand.idade > 0}">
+        <span th:text="${cand.idade + ' anos'}">idade</span>
+        </p>
+        <p class="extra" th:if="${cand.ocupacao != null and !cand.ocupacao.isBlank()}"
+        th:text="${cand.ocupacao}">Ocupação</p>
+        <p class="extra" th:if="${cand.grauInstrucao != null and !cand.grauInstrucao.isBlank()}"
+        th:text="${cand.grauInstrucao}">Escolaridade</p>
+      </div>
+    </div>
+
+</body>
+</html>
